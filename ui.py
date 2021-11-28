@@ -31,30 +31,26 @@ class QuizInterface:
         self.window.mainloop()
 
     def get_next_question(self):
-        self.score_text.config(text=f'Score: {self.quiz.score}')
         self.quiz_text_window.config(bg='white')
-        question = self.quiz.next_question()
-        self.quiz_text_window.itemconfig(self.quiz_text, text=f'{question}')
+        self.score_text.config(text=f'Score: {self.quiz.score}')
+        if self.quiz.question_number < 10:
+            question = self.quiz.next_question()
+            self.quiz_text_window.itemconfig(self.quiz_text, text=f'{question}')
+        elif self.quiz.question_number == 10:
+            self.quiz_text_window.itemconfig(
+                self.quiz_text,
+                text=f'You\'ve gotten {self.quiz.score} out of {self.quiz.question_number} correct!')
 
     def answer_true(self):
         self.give_feedback(self.quiz.check_answer('True'))
-        if self.quiz.question_number == 10:
-            self.quiz_text_window.itemconfig(
-                self.quiz_text,
-                text=f'You\'ve gotten {self.quiz.score} out of {self.quiz.question_number} correct!')
 
     def answer_false(self):
         self.give_feedback(self.quiz.check_answer('False'))
-        if self.quiz.question_number == 10:
-            self.quiz_text_window.itemconfig(
-                self.quiz_text,
-                text=f'You\'ve gotten {self.quiz.score} out of {self.quiz.question_number} correct!')
 
     def give_feedback(self, is_right):
-        if self.quiz.question_number < 10:
+        if self.quiz.question_number <= 10:
             if is_right:
                 self.quiz_text_window.config(bg='green')
             elif not is_right:
                 self.quiz_text_window.config(bg='red')
         self.window.after(1000, self.get_next_question)
-
