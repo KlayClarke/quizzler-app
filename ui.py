@@ -1,6 +1,4 @@
 from tkinter import *
-
-import quiz_brain
 from quiz_brain import QuizBrain
 
 THEME_COLOR = "#375362"
@@ -38,8 +36,20 @@ class QuizInterface:
 
     def answer_true(self):
         self.quiz.check_answer('True')
-        self.get_next_question()
+        self.score_text.config(text=f'Score: {self.quiz.score}')
+        if self.quiz.question_number < 10:
+            self.get_next_question()
+        elif self.quiz.question_number == 10:
+            self.quiz_text_window.itemconfig(
+                self.quiz_text,
+                text=f'You\'ve gotten {self.quiz.score}/{self.quiz.question_number} correct!')
 
     def answer_false(self):
         self.quiz.check_answer('False')
-        self.get_next_question()
+        self.score_text.config(text=f'Score: {self.quiz.score}')
+        if self.quiz.question_number < 10:
+            self.get_next_question()
+        elif self.quiz.question_number == 10:
+            self.quiz_text_window.itemconfig(
+                self.quiz_text,
+                text=f'You\'ve gotten {self.quiz.score}/{self.quiz.question_number} correct!')
