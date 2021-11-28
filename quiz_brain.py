@@ -26,5 +26,5 @@ class QuizBrain:
             self.current_question.answer = None
         elif user_answer.lower() == correct_answer.lower():
             self.score += 1
-        print(f'Correct answer is {self.current_question.answer}')
-        return self.score
+            print(f'Correct answer is {self.current_question.answer}')
+            return self.score
