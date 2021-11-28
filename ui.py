@@ -31,13 +31,13 @@ class QuizInterface:
         self.window.mainloop()
 
     def get_next_question(self):
+        self.score_text.config(text=f'Score: {self.quiz.score}')
         self.quiz_text_window.config(bg='white')
         question = self.quiz.next_question()
         self.quiz_text_window.itemconfig(self.quiz_text, text=f'{question}')
 
     def answer_true(self):
         self.give_feedback(self.quiz.check_answer('True'))
-        self.score_text.config(text=f'Score: {self.quiz.score}')
         if self.quiz.question_number == 10:
             self.quiz_text_window.itemconfig(
                 self.quiz_text,
@@ -45,7 +45,6 @@ class QuizInterface:
 
     def answer_false(self):
         self.give_feedback(self.quiz.check_answer('False'))
-        self.score_text.config(text=f'Score: {self.quiz.score}')
         if self.quiz.question_number == 10:
             self.quiz_text_window.itemconfig(
                 self.quiz_text,
