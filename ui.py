@@ -36,29 +36,26 @@ class QuizInterface:
         self.quiz_text_window.itemconfig(self.quiz_text, text=f'{question}')
 
     def answer_true(self):
-        is_right = self.quiz.check_answer('True')
         self.give_feedback(self.quiz.check_answer('True'))
         self.score_text.config(text=f'Score: {self.quiz.score}')
         if self.quiz.question_number == 10:
             self.quiz_text_window.itemconfig(
                 self.quiz_text,
                 text=f'You\'ve gotten {self.quiz.score} out of {self.quiz.question_number} correct!')
-        return is_right
 
     def answer_false(self):
-        is_right = self.quiz.check_answer('False')
         self.give_feedback(self.quiz.check_answer('False'))
         self.score_text.config(text=f'Score: {self.quiz.score}')
         if self.quiz.question_number == 10:
             self.quiz_text_window.itemconfig(
                 self.quiz_text,
                 text=f'You\'ve gotten {self.quiz.score} out of {self.quiz.question_number} correct!')
-        return is_right
 
     def give_feedback(self, is_right):
-        if is_right:
-            self.quiz_text_window.config(bg='green')
-        elif not is_right:
-            self.quiz_text_window.config(bg='red')
+        if self.quiz.question_number < 10:
+            if is_right:
+                self.quiz_text_window.config(bg='green')
+            elif not is_right:
+                self.quiz_text_window.config(bg='red')
         self.window.after(1000, self.get_next_question)
 
