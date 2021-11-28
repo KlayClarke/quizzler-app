@@ -18,7 +18,6 @@ class QuizBrain:
         formatted_q_text = html.unescape(self.current_question.text)
         question = f"Q.{self.question_number}: {formatted_q_text} (True/False): "
         return question
-        # self.check_answer(user_answer)
 
     def check_answer(self, user_answer):
         correct_answer = self.current_question.answer
@@ -26,5 +25,7 @@ class QuizBrain:
             self.current_question.answer = None
         elif user_answer.lower() == correct_answer.lower():
             self.score += 1
-            print(f'Correct answer is {self.current_question.answer}')
-            return self.score
+            return self.score, True
+        elif user_answer.lower() != correct_answer.lower():
+            return False
+
